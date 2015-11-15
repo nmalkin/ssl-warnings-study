@@ -1,0 +1,17 @@
+warn:
+  build: .
+  ports:
+    - "8080:8080"
+  links:
+    - mysql
+mysql_data:
+  volumes:
+    - /var/lib/mysql
+  image: mysql
+  command: /bin/true
+mysql:
+  image: mysql
+  volumes_from:
+    - mysql_data
+  environment:
+    - MYSQL_ROOT_PASSWORD=CHANGEIT
