@@ -1,0 +1,80 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+td, table {
+	vertical-align: top;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+h2 {
+	line-height: 28px;
+	font-size: 24px;
+	font-family: "Segoe UI SemiLight", "Segoe UI";
+	font-weight: normal;
+	color: #a90000;
+	margin: 0;
+	padding: 4px 28px 0 0;
+}
+
+p {
+	line-height: 20px;
+	font-size: 15px;
+	font-family: "Segoe UI";
+	font-weight: normal;
+	color: #1f1f1f;
+	margin: 16px 28px 0 0;
+	padding: 0;
+}
+
+a {
+	line-height: 20px;
+	font-size: 15px;
+	font-family: "Segoe UI";
+	font-weight: normal;
+	margin: 20px 28px 0 0;
+	padding: 0;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+#Wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 72px;
+	min-width: 320px;
+	max-width: 600px;
+}
+
+#erroricon {
+	font-size: 80px;
+	font-family: "Browser MDL2 Assets";
+	font-weight: bold;
+	color: #a90000;
+	margin: 0px 24px 0px 10px;
+	display: block;
+}
+
+#smallgoodicon {
+	font-size: 15px;
+	font-family: "Browser MDL2 Assets";
+	font-weight: bold;
+	color: #5c9100;
+	display: block;
+}
+
+#smallerroricon {
+	font-size: 15px;
+	font-family: "Browser MDL2 Assets";
+	font-weight: bold;
+	color: #a90000;
+	display: block;
+}

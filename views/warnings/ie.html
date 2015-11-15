@@ -1,0 +1,136 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0078)res://ieframe.dll/invalidcert.htm?SSLError=67108864#http://expired.badssl.com/ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" ""><HTML dir="LTR"><HEAD><META 
+content="IE=5.0000" http-equiv="X-UA-Compatible">
+<!-- <LINK href="res://ieframe.dll/ErrorPageTemplate.css" rel="stylesheet" type="text/css">  -->
+<LINK rel="stylesheet" type="text/css" href="IEstyle.css">
+
+<META name="MS.LOCALE" content="EN-US"> 
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<META http-equiv="MSThemeCompatible" content="Yes"> <TITLE>Certificate Error: 
+Navigation Blocked</TITLE> 
+<!-- <SCRIPT language="javascript" src="errorPageStrings.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT language="javascript" src="httpErrorPagesScripts.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT language="javascript" src="invalidcert.js" type="text/javascript"></SCRIPT> -->
+ 
+<META name="GENERATOR" content="MSHTML 11.00.10240.16566"></HEAD> 
+<BODY class="securityError">
+<TABLE width="730" border="0" cellspacing="0" cellpadding="0">
+
+  <!-- Main title --> 
+  <TBODY>
+  <TR>
+    <TD width="60" align="left" id="shieldIconAlign" aria-labelledby="shieldIcon" 
+    valign="top" rowspan="3"><IMG id="shieldIcon" alt="Shield icon" src="ieIcons/redShield.tmp">
+    </TD>
+    <TD width="*" align="left" id="mainTitleAlign" valign="middle">
+      <H1 id="mainTitle">There is a problem with this website’s security certificate.</H1>
+    </TD>
+  </TR>
+  <TR>
+    <TD>
+      <H3><DIV id="linkdiv" name="linkdiv"></DIV></H3>
+    </TD>
+  </TR>
+  <TR> <!-- This row is for the the divider-->	 
+    <TD align="right" class="errorCodeAndDivider" id="errorCodeAlign">&nbsp;		
+      <DIV class="divider"></DIV>
+    </TD>
+  </TR> <!-- Error Body -->	 
+  <TR>
+    <TD></TD>
+    <TD>
+      <H3>
+      <DIV id="CertUnknownCA" style="display: none;" name="CertUnknownCA"></DIV>
+      <DIV id="CertExpired" style="display: block;" name="CertExpired">
+        The security certificate presented by this website has expired or is not yet valid.
+      </DIV>
+      <DIV id="CertCNMismatch" style="display: none;" name="CertCNMismatch"></DIV>
+      <DIV id="CertRevoked" style="display: none;" name="CertRevoked"></DIV>
+      <DIV id="CertSigFailed" style="display: none;" name="CertSigFailed"></DIV>
+<!--         <br/>
+        <id id="securityCert1">The security certificate presented by this website has errors, and should not be trusted.</id> -->
+        <BR/>
+        <id id="securityCert2">Security certificate problems may indicate an attempt to fool you or intercept any data you send to the server.</id>		 
+      </H3>
+    </TD>
+  </TR>`<!-- Recommendation-->	 
+  <TR>
+    <TD>&nbsp;</TD>
+    <TD>
+      <H2 id="recommendation"><B>We recommend that you close this webpage and do not continue to this website. </B></H2>
+    </TD>
+  </TR>
+
+  <!-- close webpage-->	 
+  <TR>
+    <TD></TD>
+    <TD align="left" id="closeWebpageAlign" aria-labelledby="closeWebpage" valign="middle">
+      <H4 id="closeWebpage"><IMG class="actionIcon" alt="Recommended icon" src="ieIcons/greenShield.png" border="0">
+      <A class = "link" href=""> Click here to close this webpage.</A>
+      </H4>
+    </TD>
+  </TR>
+
+  <!-- continue to site-->	 
+  <TR>
+    <TD></TD>
+    <TD align="left" id="continueToSiteAlign" aria-labelledby="continueToSite" 
+    valign="middle">
+      <H4 id="continueToSite"><IMG class="actionIcon" id="ImgOverride" alt="Not recommended icon" src="ieIcons/redShieldSmall.tmp" border="0">
+      <A name="overridelink" id="overridelink" href="" class="link">Continue to this website (not recommended).</A>		 
+      </H4>
+    </TD>
+  </TR>
+
+  <!-- InfoBlock -->             
+  <TR>
+    <TD align="right" id="infoBlockAlign" valign="top"></TD>
+    <TD align="left" id="moreInformationAlign" aria-labelledby="moreInformation" valign="middle">
+      <H4>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD aria-labelledby="infoBlockIDImage" valign="top">
+            <A onclick="showInfo()">
+            <IMG 
+            class="actionIcon" id="infoBlockIDImage" alt="More information" src="ieIcons/maximizeIcon.png" border="0">
+            </A> 
+            <script>
+              function showInfo() {
+                if (document.getElementById("infoBlockID").style.display === "block") {
+                  document.getElementById("infoBlockID").style.display = "none";
+                  document.getElementById("infoBlockIDImage").src = "ieIcons/maximizeIcon.png"
+                } else {
+                  document.getElementById("infoBlockID").style.display = "block";
+                  document.getElementById("infoBlockIDImage").src = "ieIcons/minimizeIcon.png"
+                }
+              }
+            </script>
+          </TD>
+          <TD valign="top">
+          <SPAN id="moreInfoContainer">
+           <A onclick="showInfo()">More information</A>
+          </SPAN>                             
+          </TD>
+        </TR>
+        </TBODY>
+      </TABLE>
+      </H4>
+        <DIV class="infoBlock" id="infoBlockID" style="display: none;">
+          <P></P>
+          <LI id="errorExpl1">If you arrived at this page by clicking a link, check the website address in the address bar to be sure that it is the address you were expecting.</LI>
+      
+          <LI id="errorExpl2">When going to a website with an address such as https://example.com, try adding the 'www' to the address, https://www.example.com.</LI>
+          <P></P>
+          <P id="moreInfoSeeHelpPF">For more information, see "Certificate Errors" in Internet Explorer Help.</P>
+        </DIV>
+    </TD>
+  </TR>
+  </TBODY>
+</TABLE>
+</BODY>
+
+</HTML>

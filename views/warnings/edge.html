@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <title>Certificate error: Navigation blocked</title>
+    <link rel="stylesheet" type="text/css" href="EdgeStyle.css">
+</head>
+
+<body onload="document.getElementById('continueLink').href = getNavigationURL()">
+    <div id="Wrapper">
+        <div id="invalidcert">
+            <table>
+                <tr>
+                    <td>
+                        <span id="erroricon"><img src="edgeIcons/errorIcon.jpg" style="width:80px;height:80px;"/></span>
+                    </td>
+                    <td>
+                        <h2 id="invalidcert_header">There is a problem with this website&rsquo;s security certificate</h2>
+                        <p id="invalidcert_body1">We recommend that you close this webpage and do not continue to this website.</p>
+                        <p id="invalidcert_body2">The security certificate for this site doesn&rsquo;t match the site&rsquo;s web address and may indicate an attempt to fool you or intercept any data you send to the server.</p>
+                        <br />
+                        <table>
+                            <tr><td><span id="smallgoodicon"></span><img src="edgeIcons/smallgoodicon.jpg" style="width:21px;height:19px;"/></td><td>
+                                    <a href="about:home"><id id="invalidcert_gohome">Go to my homepage instead</id></a>
+                                </td></tr>
+                            <tr><td><br /></td></tr>
+                            <tr><td><span id="smallerroricon"><img src="edgeIcons/smallerroricon.jpg" style="width:20px;height:20px;"/></span></td><td>
+                                    <a href="" id="continueLink"><id id="invalidcert_continue">Continue to this webpage (not recommended)</id></a>
+                                </td></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 

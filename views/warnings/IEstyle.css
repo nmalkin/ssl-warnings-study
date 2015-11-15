@@ -1,0 +1,101 @@
+body {
+	font-family: "Segoe UI", "verdana", "Arial";
+	background-color: #E8AEF;
+	margin-top: 20px;
+	margin-left: 20px;
+	color: #575757;
+}
+
+body.securityError {
+	font-family: "Segoe UI", "verdana", "Arial";
+	background-color: #E8AEF;
+	background: linear-gradient(to bottom, rgba(255,0,0,0.5) -65%,rgba(200,0,0,0) 10%,rgba(0,0,0,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(255,0,0,0.5)', endColorstr='rgba(200,0,0,0)',GradientType=0 ); /* IE6-9 */
+	margin-top: 0px;
+	margin-left: 20px;
+}
+
+h1 {
+	color: 4465a2;
+	font-size: 1.1em;
+	font-weight: normal;
+	vertical-align: bottom;
+	margin-top: 7px;
+	margin-bottom: 4px;
+}
+
+h2 {
+	font-size: 0.9em;
+	font-weight: normal;
+	margin-top: 20px;
+	margin-bottom: 1px;
+}
+
+h3 {
+	font-size: 0.9em;
+	font-weight: normal;
+	margin-top: 10px;
+	margin-bottom: 1px;
+}
+
+h4 {
+	font-size: 0.9em;
+	font-weight: normal;;
+	margin-top: 12px;
+	margin-bottom: 1px;
+}
+
+a {
+	color: rgb(19,112,171);
+	font-size: 1em;
+	font-weight: normal;
+	text-decoration: none;
+	margin-left: 0px;
+	vertical-align: top;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: rgb(7, 74, 229);
+}
+
+a:link, a:visited {
+	color: rgb(19,112,171);
+	text-decoration: none;
+	vertical-align: top;
+}
+
+p {
+	font-size: 0.9em;
+}
+
+.link:hover {
+	text-decoration: underline;
+	color: rgb(7, 74, 229);
+
+}
+
+.errorCodeAndDivider {
+	font-size: 0.7em;
+	font-weight: normal;
+	color: #787878;
+}
+
+.divider {
+	border-bottom: #B6BCC6 1px solid;
+}
+
+.actionIcon {
+	/*vertical-align: middle;*/
+	margin-top: 0px;
+	margin-right: 6px;
+}
+
+.infoBlock {
+	padding-left: 25px;
+	font-size: 0.9em;
+	display: block;
+	/*line-height: 1.1em;*/
+	color: #575757;
+}
+
