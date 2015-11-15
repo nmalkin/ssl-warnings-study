@@ -2,6 +2,8 @@
 /// <reference path='typings/vendor/express/express.d.ts' />
 /// <reference path='typings/local/useragent.d.ts' />
 
+var cookieSession = require('cookie-session');
+var crypt = require('crypto');
 var express = require('express');
 var fs = require('fs');
 var morgan = require('morgan')
@@ -52,6 +54,19 @@ function getWarningPage(browserFile : Filename) : string {
 
 var app = express();
 app.use(morgan('combined'));
+app.use(cookieSession({
+    name: 'session',
+    secret: process.env.SECRET || 'CHANGEIT'
+}));
+
+// Make sure user has a session token
+app.use(function(req, res, next) {
+    if(! req.session.id) {
+        req.session.id = crypt.randomBytes(64).toString('hex');
+    }
+
+    next();
+});
 
 app.get('/', function(req, res) {
     var browser : Browser;

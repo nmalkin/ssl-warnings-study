@@ -9,6 +9,8 @@ run:
 		-p 8080:8080 \
 		$(appname)
 
+kill:
+	docker kill $(appname)
 build:
 	docker build -t $(appname) .
 
