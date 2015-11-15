@@ -2,6 +2,8 @@
 /// <reference path='typings/vendor/express/express.d.ts' />
 /// <reference path='typings/local/useragent.d.ts' />
 
+'use strict';
+
 var cookieSession = require('cookie-session');
 var crypt = require('crypto');
 var express = require('express');
@@ -12,6 +14,12 @@ var useragent = require('useragent');
 enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
 type Filename = string;
 
+/**
+ * Parse string browser names into the concrete Browser type
+ *
+ * The source browser names used are the "family" values from the useragent
+ * library.
+ */
 function parseBrowser(browser : string) : Browser {
     switch(browser) {
         case 'Chrome':
@@ -27,6 +35,9 @@ function parseBrowser(browser : string) : Browser {
     }
 }
 
+/**
+ * Provide the filename of the warning for the given browser
+ */
 function filenameForBrowser(browser : Browser) : Filename {
     var filename: Filename;
     switch(browser) {
@@ -43,6 +54,11 @@ function filenameForBrowser(browser : Browser) : Filename {
     }
 }
 
+/**
+ * Return the contents of the warning page with the given filename
+ *
+ * If the argument is null, an empty string is returned instead.
+ */
 function getWarningPage(browserFile : Filename) : string {
     if(browserFile === null) {
         return '';
@@ -52,14 +68,20 @@ function getWarningPage(browserFile : Filename) : string {
     return fs.readFileSync(filePath);
 }
 
+
+// Initiate the Express app
 var app = express();
+
+// Log requests to the console
 app.use(morgan('combined'));
+
+// Create a cookie-based session
 app.use(cookieSession({
     name: 'session',
     secret: process.env.SECRET || 'CHANGEIT'
 }));
 
-// Make sure user has a session token
+// Make sure every user has a session token
 app.use(function(req, res, next) {
     if(! req.session.id) {
         req.session.id = crypt.randomBytes(64).toString('hex');
@@ -71,16 +93,18 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
     var browser : Browser;
 
+    // Decide which browser warning to serve
     if('browser' in req.query) {
+        // Allow 'browser' query argument to override actual user agent
         browser = parseBrowser(req.query.browser);
     } else {
         var agent = useragent.lookup(req.headers['user-agent']);
         browser = parseBrowser(agent.family);
     }
 
+    // Load warning page and send it to the user
     var filename = filenameForBrowser(browser);
     var page = getWarningPage(filename);
-
     res.set('Content-Type', 'text/html');
     res.send(page);
 });
