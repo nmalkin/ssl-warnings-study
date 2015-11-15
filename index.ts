@@ -11,11 +11,14 @@ type Filename = string;
 
 function parseBrowser(browser : string) : Browser {
     switch(browser) {
-        // TODO: what do Edge, IE look like?
         case 'Chrome':
             return Browser.Chrome;
+        case 'Edge':
+            return Browser.Edge;
         case 'Firefox':
             return Browser.Firefox;
+        case 'IE': // TODO: is this is the proper string for IE?
+            return Browser.InternetExplorer;
         default:
             return Browser.Other;
     }
@@ -64,4 +67,5 @@ app.get('/', function(req, res) {
     res.send(page);
 });
 
+app.use(express.static(__dirname + '/static'));
 app.listen(3000);
