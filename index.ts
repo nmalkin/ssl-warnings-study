@@ -4,6 +4,7 @@
 
 var express = require('express');
 var fs = require('fs');
+var morgan = require('morgan')
 var useragent = require('useragent');
 
 enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
@@ -50,6 +51,8 @@ function getWarningPage(browserFile : Filename) : string {
 }
 
 var app = express();
+app.use(morgan('combined'));
+
 app.get('/', function(req, res) {
     var browser : Browser;
 
