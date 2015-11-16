@@ -1,15 +1,17 @@
-/// <reference path='typings/vendor/node/node.d.ts' />
 /// <reference path='typings/vendor/express/express.d.ts' />
+/// <reference path='typings/vendor/morgan/morgan.d.ts' />
+/// <reference path='typings/vendor/node/node.d.ts' />
+/// <reference path='typings/local/cookie-session.d.ts' />
 /// <reference path='typings/local/useragent.d.ts' />
 
 'use strict';
 
-var cookieSession = require('cookie-session');
-var crypt = require('crypto');
-var express = require('express');
-var fs = require('fs');
-var morgan = require('morgan')
-var useragent = require('useragent');
+import cookieSession = require('cookie-session');
+import crypto = require('crypto');
+import express = require('express');
+import fs = require('fs');
+import morgan = require('morgan');
+import useragent = require('useragent');
 
 enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
 type Filename = string;
@@ -65,7 +67,15 @@ function getWarningPage(browserFile : Filename) : string {
     }
 
     var filePath = 'views/warnings/' + browserFile;
-    return fs.readFileSync(filePath);
+    return fs.readFileSync(filePath).toString();
+}
+
+function renderResponseForBrowser(browser : Browser, res : express.Response) {
+    // Load warning page and send it to the user
+    var filename = filenameForBrowser(browser);
+    var page = getWarningPage(filename);
+    res.set('Content-Type', 'text/html');
+    res.send(page);
 }
 
 
@@ -82,9 +92,9 @@ app.use(cookieSession({
 }));
 
 // Make sure every user has a session token
-app.use(function(req, res, next) {
+app.use(function(req : Express.Request, res, next) {
     if(! req.session.id) {
-        req.session.id = crypt.randomBytes(64).toString('hex');
+        req.session.id = crypto.randomBytes(64).toString('hex');
     }
 
     next();
@@ -102,11 +112,7 @@ app.get('/', function(req, res) {
         browser = parseBrowser(agent.family);
     }
 
-    // Load warning page and send it to the user
-    var filename = filenameForBrowser(browser);
-    var page = getWarningPage(filename);
-    res.set('Content-Type', 'text/html');
-    res.send(page);
+    renderResponseForBrowser(browser, res);
 });
 
 app.use(express.static(__dirname + '/static'));
