@@ -11,9 +11,11 @@ import crypto = require('crypto');
 import express = require('express');
 import fs = require('fs');
 import morgan = require('morgan');
+import path = require('path');
 import useragent = require('useragent');
 
 enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
+enum Conditions { Control, Social };
 type Filename = string;
 
 /**
@@ -44,40 +46,25 @@ function filenameForBrowser(browser : Browser) : Filename {
     var filename: Filename;
     switch(browser) {
         case Browser.Chrome:
-           return 'chrome.html';
+           return 'chrome';
         case Browser.Edge:
-           return 'edge.html';
+           return 'edge';
         case Browser.Firefox:
-           return 'firefox.html';
+           return 'firefox';
         case Browser.InternetExplorer:
-           return 'ie.html';
+           return 'ie';
         case Browser.Other:
-           return null;
+           return 'other';
     }
 }
 
 /**
- * Return the contents of the warning page with the given filename
- *
- * If the argument is null, an empty string is returned instead.
+ * Render a warning page based on the given browser
  */
-function getWarningPage(browserFile : Filename) : string {
-    if(browserFile === null) {
-        return '';
-    }
-
-    var filePath = 'views/warnings/' + browserFile;
-    return fs.readFileSync(filePath).toString();
+function renderResponseForBrowser(browser : Browser, req : express.Request, res : express.Response) : void {
+    var view = path.join('warnings', filenameForBrowser(browser));
+    res.render(view, {condition: req.session.condition});
 }
-
-function renderResponseForBrowser(browser : Browser, res : express.Response) {
-    // Load warning page and send it to the user
-    var filename = filenameForBrowser(browser);
-    var page = getWarningPage(filename);
-    res.set('Content-Type', 'text/html');
-    res.send(page);
-}
-
 
 // Initiate the Express app
 var app = express();
@@ -97,8 +84,14 @@ app.use(function(req : Express.Request, res, next) {
         req.session.id = crypto.randomBytes(64).toString('hex');
     }
 
+    if(! req.session.condition) {
+        req.session.condition = Conditions.Social;
+    }
+
     next();
 });
+
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
     var browser : Browser;
@@ -112,7 +105,7 @@ app.get('/', function(req, res) {
         browser = parseBrowser(agent.family);
     }
 
-    renderResponseForBrowser(browser, res);
+    renderResponseForBrowser(browser, req, res);
 });
 
 app.use(express.static(__dirname + '/static'));

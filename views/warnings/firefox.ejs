@@ -141,6 +141,11 @@ h2 {
           <h2>What Should I Do?</h2>
           <div id="whatShouldIDoContentText">
             <p>If you usually connect to this site without problems, this error could mean that someone is trying to impersonate the site, and you shouldn't continue.</p>
+
+            <% if(condition == 1) { %>
+            <p style="font-weight:bold">80% of people who saw this warning chose not to proceed.</p>
+            <% } %>
+
             <button id='getMeOutOfHereButton'>Get me out of here!</button>
           </div>
         </div>

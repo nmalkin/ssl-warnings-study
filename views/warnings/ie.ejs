@@ -56,7 +56,18 @@ Navigation Blocked</TITLE>
         <id id="securityCert2">Security certificate problems may indicate an attempt to fool you or intercept any data you send to the server.</id>		 
       </H3>
     </TD>
-  </TR>`<!-- Recommendation-->	 
+  </TR>
+  
+  <% if(condition == 1) { %>
+  <TR>
+    <TD>&nbsp;</TD>
+    <TD>
+      <H2 id="recommendation"><B>80% of people who saw this warning chose not to proceed.</B></H2>
+    </TD>
+  </TR>
+  <% } %>
+  
+  <!-- Recommendation-->	 
   <TR>
     <TD>&nbsp;</TD>
     <TD>
