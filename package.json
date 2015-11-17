@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "warning_server",
   "version": "0.0.1",
   "dependencies": {
     "cookie-session": "^1.2.0",

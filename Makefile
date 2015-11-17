@@ -1,4 +1,4 @@
-appname = app
+appname = warning_server
 
 .PHONY: clean run
 

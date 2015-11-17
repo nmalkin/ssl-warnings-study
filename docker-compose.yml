@@ -1,4 +1,4 @@
-warn:
+warning_server:
   build: .
   ports:
     - "80:8080"
