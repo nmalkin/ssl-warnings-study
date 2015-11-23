@@ -63,7 +63,10 @@ function filenameForBrowser(browser : Browser) : Filename {
  */
 function renderResponseForBrowser(browser : Browser, req : express.Request, res : express.Response) : void {
     var view = path.join('warnings', filenameForBrowser(browser));
-    res.render(view, {condition: req.session.condition});
+    res.render(view, {
+        condition: req.session.condition,
+        domain: req.headers['host']
+    });
 }
 
 // Initiate the Express app

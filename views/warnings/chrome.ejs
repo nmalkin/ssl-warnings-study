@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)https://example.com/chrome-certerror.html -->
 <html dir="ltr" style="font-size: 75%;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, width=device-width">
@@ -345,7 +344,7 @@ document.addEventListener('DOMContentLoaded', setupEvents);
     <div class="icon" id="icon"></div>
     <div id="main-message">
       <h1>Your connection is not private</h1>
-      <p>Attackers might be trying to steal your information from <strong>www.example.com</strong> (for example, passwords, messages, or credit cards).</p>
+      <p>Attackers might be trying to steal your information from <strong><%= domain %></strong> (for example, passwords, messages, or credit cards).</p>
       <% if(condition == 1) { %>
       <p style="font-weight:bold">80% of people who saw this warning chose not to proceed.</p>
       <% } %>
@@ -359,16 +358,16 @@ document.addEventListener('DOMContentLoaded', setupEvents);
     </div>
     <div class="nav-wrapper">
       <button id="primary-button">Back to safety</button>
-      <a href="https://example.com/chrome-certerror.html#" id="details-button" class="small-link">Advanced</a>
+      <a href="#" id="details-button" class="small-link">Advanced</a>
     </div>
     <div id="details" class="hidden">
-      <p>This server could not prove that it is <strong>www.example.com</strong>; its security certificate is not trusted by your computer's operating system. This may be caused by a misconfiguration or an attacker intercepting your connection.</p>
-      <p id="final-paragraph"><a href="https://example.com/chrome-certerror.html#" id="proceed-link" class="small-link">Proceed to www.example.com (unsafe)</a></p>
+      <p>This server could not prove that it is <strong><%= domain %></strong>; its security certificate is not trusted by your computer's operating system. This may be caused by a misconfiguration or an attacker intercepting your connection.</p>
+      <p id="final-paragraph"><a href="#" id="proceed-link" class="small-link">Proceed to <%= domain %> (unsafe)</a></p>
     </div>
     <div id="debugging">
       <p id="error-code">NET::ERR_CERT_AUTHORITY_INVALID</p>
       <div id="error-debugging-info" class="hidden">
-        <p class="debugging-content"><span class="debugging-title">Subject: </span><span class="debugging-value">www.example.com</span></p>
+        <p class="debugging-content"><span class="debugging-title">Subject: </span><span class="debugging-value"><%= domain %></span></p>
         <p class="debugging-content"><span class="debugging-title">Issuer: </span><span class="debugging-value">RapidSSL SHA256 CA - G3</span></p>
         <p class="debugging-content"><span class="debugging-title">Expires on: </span><span class="debugging-value">May 31, 2017</span></p>
         <p class="debugging-content"><span class="debugging-title">Current date: </span><span class="debugging-value"><script>

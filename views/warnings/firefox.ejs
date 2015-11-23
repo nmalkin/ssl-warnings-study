@@ -133,7 +133,7 @@ h2 {
       <!-- LONG CONTENT (the section most likely to require scrolling) -->
       <div id="errorLongContent">
         <div id="introContent">
-          <p id="introContentP1">You have asked Firefox to connect securely to <b>www.example.com</b>, but we can't confirm that your connection is secure.</p>
+          <p id="introContentP1">You have asked Firefox to connect securely to <b><%= domain %></b>, but we can't confirm that your connection is secure.</p>
           <p>Normally, when you try to connect securely, sites will present trusted identification to prove that you are going to the right place. However, this site's identity can't be verified.</p>
         </div>
 
@@ -155,7 +155,7 @@ h2 {
         <h2 id="technicalContent" class="expander" collapsed="true">
           <button onclick="toggle('technicalContent');">Technical Details</button>
         </h2>
-        <p id="technicalContentText">www.example.com uses an invalid security certificate.
+        <p id="technicalContentText"><%= domain %> uses an invalid security certificate.
 
 The certificate is not trusted because no issuer chain was provided.
 
