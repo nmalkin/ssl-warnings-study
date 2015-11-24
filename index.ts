@@ -96,6 +96,7 @@ app.use(function(req : Express.Request, res, next) {
 
 app.set('view engine', 'ejs');
 
+// Show the warning
 app.get('/', function(req, res) {
     var browser : Browser;
 
@@ -109,6 +110,11 @@ app.get('/', function(req, res) {
     }
 
     renderResponseForBrowser(browser, req, res);
+});
+
+// Show the "unsafe" page
+app.get('/proceed', function(req, res) {
+    res.render('unsafe');
 });
 
 app.use(express.static(__dirname + '/static'));
