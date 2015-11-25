@@ -1,5 +1,6 @@
 *.js
 *.map
 node_modules
+static/js
 typings/tsd.d.ts
 typings/vendor

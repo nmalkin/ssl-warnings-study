@@ -72,10 +72,10 @@ function renderResponseForBrowser(browser : Browser, req : express.Request, res 
     });
 }
 
-function recordEvent(req, source : EventSource, event : string, value : string) : void {
+function recordEvent(req, source : EventSource, name : string, value : string) : void {
     var record = {
-        event: event,
         ip: req.ip,
+        name: name,
         session: req.session.id,
         source: EventSource[source],
         timestamp: (new Date()).toISOString(),
@@ -145,11 +145,11 @@ app.get('/proceed', function(req, res) {
 });
 
 app.post('/event', function(req, res) {
-    var event = req.body.event;
+    var name = req.body.name;
     var value = req.body.value;
     // TODO: external event whitelist?
 
-    recordEvent(req, EventSource.External, event, value);
+    recordEvent(req, EventSource.External, name, value);
 
     res.send('OK');
 });

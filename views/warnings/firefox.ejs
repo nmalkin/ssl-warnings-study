@@ -146,14 +146,14 @@ h2 {
             <p style="font-weight:bold">80% of people who saw this warning chose not to proceed.</p>
             <% } %>
 
-            <button id='getMeOutOfHereButton'>Get me out of here!</button>
+            <button id='getMeOutOfHereButton' data-track='firefox-get-me-out'>Get me out of here!</button>
           </div>
         </div>
 
         <!-- The following sections can be unhidden by default by setting the
              "browser.xul.error_pages.expert_bad_cert" pref to true -->
         <h2 id="technicalContent" class="expander" collapsed="true">
-          <button onclick="toggle('technicalContent');">Technical Details</button>
+          <button onclick="toggle('technicalContent');" data-track='firefox-technical'>Technical Details</button>
         </h2>
         <p id="technicalContentText"><%= domain %> uses an invalid security certificate.
 
@@ -162,12 +162,12 @@ The certificate is not trusted because no issuer chain was provided.
 (Error code: sec_error_unknown_issuer)</p>
 
         <h2 id="expertContent" class="expander" collapsed="true">
-          <button onclick="toggle('expertContent');">I Understand the Risks</button>
+          <button onclick="toggle('expertContent');" data-track='firefox-understand-risks'>I Understand the Risks</button>
         </h2>
         <div>
           <p>If you understand what's going on, you can tell Firefox to start trusting this site's identification. <b>Even if you trust the site, this error could mean that someone is tampering with your connection.</b></p>
           <p>Don't add an exception unless you know there's a good reason why this site doesn't use trusted identification.</p>
-          <button id='exceptionDialogButton'>Add Exception…</button>
+          <button id='exceptionDialogButton' data-track='firefox-add-exception'>Add Exception…</button>
         </div>
       </div>
     </div>
@@ -176,5 +176,6 @@ The certificate is not trusted because no issuer chain was provided.
             window.location = "/proceed";
         };
     </script>
+    <script type="text/javascript" src="/js/events.js"></script>
   </body>
 </html>
