@@ -1,3 +1,4 @@
+/// <reference path='typings/vendor/body-parser/body-parser.d.ts' />
 /// <reference path='typings/vendor/express/express.d.ts' />
 /// <reference path='typings/vendor/morgan/morgan.d.ts' />
 /// <reference path='typings/vendor/node/node.d.ts' />
@@ -6,6 +7,7 @@
 
 'use strict';
 
+import bodyParser = require('body-parser');
 import cookieSession = require('cookie-session');
 import crypto = require('crypto');
 import express = require('express');
@@ -93,6 +95,9 @@ var app = express();
 // Log requests to the console
 app.use(morgan('combined'));
 
+// Parse JSON requests
+app.use(bodyParser.json());
+
 // Create a cookie-based session
 app.use(cookieSession({
     name: 'session',
@@ -137,6 +142,16 @@ app.get('/', function(req, res) {
 app.get('/proceed', function(req, res) {
     track(req, 'proceed', Date.now().toString());
     res.render('unsafe');
+});
+
+app.post('/event', function(req, res) {
+    var event = req.body.event;
+    var value = req.body.value;
+    // TODO: external event whitelist?
+
+    recordEvent(req, EventSource.External, event, value);
+
+    res.send('OK');
 });
 
 app.use(express.static(__dirname + '/static'));
