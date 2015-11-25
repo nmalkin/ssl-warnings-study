@@ -140,7 +140,7 @@ app.get('/', function(req, res) {
 
 // Show the "unsafe" page
 app.get('/proceed', function(req, res) {
-    track(req, 'proceed', Date.now().toString());
+    track(req, 'proceed', (new Date()).toISOString());
     res.render('unsafe');
 });
 
