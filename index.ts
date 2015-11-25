@@ -16,6 +16,7 @@ import useragent = require('useragent');
 
 enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
 enum Conditions { Control, Social };
+enum EventSource { External, Internal };
 type Filename = string;
 
 /**
@@ -69,6 +70,23 @@ function renderResponseForBrowser(browser : Browser, req : express.Request, res 
     });
 }
 
+function recordEvent(req, source : EventSource, event : string, value : string) : void {
+    var record = {
+        event: event,
+        ip: req.ip,
+        session: req.session.id,
+        source: EventSource[source],
+        timestamp: (new Date()).toISOString(),
+        useragent: req.headers['user-agent'],
+        value: value,
+    }
+    console.log(record);
+}
+
+function track(req, event : string, value : string) : void {
+    recordEvent(req, EventSource.Internal, event, value);
+}
+
 // Initiate the Express app
 var app = express();
 
@@ -89,6 +107,7 @@ app.use(function(req : Express.Request, res, next) {
 
     if(! req.session.condition) {
         req.session.condition = Conditions.Social;
+        track(req, 'condition', Conditions[req.session.condition]);
     }
 
     next();
@@ -109,11 +128,14 @@ app.get('/', function(req, res) {
         browser = parseBrowser(agent.family);
     }
 
+    track(req, 'browser', Browser[browser]);
+
     renderResponseForBrowser(browser, req, res);
 });
 
 // Show the "unsafe" page
 app.get('/proceed', function(req, res) {
+    track(req, 'proceed', Date.now().toString());
     res.render('unsafe');
 });
 
