@@ -80,7 +80,7 @@ Navigation Blocked</TITLE>
     <TD></TD>
     <TD align="left" id="closeWebpageAlign" aria-labelledby="closeWebpage" valign="middle">
       <H4 id="closeWebpage"><IMG class="actionIcon" alt="Recommended icon" src="ieIcons/greenShield.png" border="0">
-      <A class = "link" href=""> Click here to close this webpage.</A>
+      <A class = "link" href="#" data-track="ie-close"> Click here to close this webpage.</A>
       </H4>
     </TD>
   </TR>
@@ -91,7 +91,7 @@ Navigation Blocked</TITLE>
     <TD align="left" id="continueToSiteAlign" aria-labelledby="continueToSite" 
     valign="middle">
       <H4 id="continueToSite"><IMG class="actionIcon" id="ImgOverride" alt="Not recommended icon" src="ieIcons/redShieldSmall.tmp" border="0">
-      <A name="overridelink" id="overridelink" href="/proceed" class="link">Continue to this website (not recommended).</A>		 
+      <A name="overridelink" id="overridelink" href="/proceed" class="link" data-track="ie-continue">Continue to this website (not recommended).</A>		 
       </H4>
     </TD>
   </TR>
@@ -105,7 +105,7 @@ Navigation Blocked</TITLE>
         <TBODY>
         <TR>
           <TD aria-labelledby="infoBlockIDImage" valign="top">
-            <A onclick="showInfo()">
+            <A onclick="showInfo()" data-track="ie-toggle-info">
             <IMG 
             class="actionIcon" id="infoBlockIDImage" alt="More information" src="ieIcons/maximizeIcon.png" border="0">
             </A> 
@@ -142,6 +142,7 @@ Navigation Blocked</TITLE>
   </TR>
   </TBODY>
 </TABLE>
+<script type="text/javascript" src="/js/events.js"></script>
 </BODY>
 
 </HTML>
