@@ -14,7 +14,6 @@ import express = require('express');
 import fs = require('fs');
 import morgan = require('morgan');
 import path = require('path');
-import useragent = require('useragent');
 
 import browser_detect = require('./browser');
 
@@ -90,8 +89,7 @@ app.get('/', function(req, res) {
         // Allow 'browser' query argument to override actual user agent
         browser = browser_detect.parseBrowser(req.query.browser);
     } else {
-        var agent = useragent.lookup(req.headers['user-agent']);
-        browser = browser_detect.parseBrowser(agent.family);
+        browser = browser_detect.browserFromUseragent(req.headers['user-agent']);
     }
 
     track(req, 'browser', browser_detect.Browser[browser]);

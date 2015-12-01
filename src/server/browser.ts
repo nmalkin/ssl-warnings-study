@@ -1,3 +1,5 @@
+import useragent = require('useragent');
+
 export enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
 type Filename = string;
 
@@ -39,4 +41,12 @@ export function filenameForBrowser(browser : Browser) : Filename {
         case Browser.Other:
            return 'other';
     }
+}
+
+/**
+ * Given a useragent string, returns the corresponding Browser type
+ */
+export function browserFromUseragent(rawUseragent : string) : Browser {
+    var detectedUseragent = useragent.lookup(rawUseragent);
+    return parseBrowser(detectedUseragent.family);
 }
