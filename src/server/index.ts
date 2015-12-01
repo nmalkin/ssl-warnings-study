@@ -16,9 +16,9 @@ import morgan = require('morgan');
 import path = require('path');
 
 import browser_detect = require('./browser');
+import events = require('./events');
 
 enum Conditions { Control, Social };
-enum EventSource { External, Internal };
 
 
 /**
@@ -32,22 +32,6 @@ function renderResponseForBrowser(browser : browser_detect.Browser, req : expres
     });
 }
 
-function recordEvent(req, source : EventSource, name : string, value : string) : void {
-    var record = {
-        ip: req.ip,
-        name: name,
-        session: req.session.id,
-        source: EventSource[source],
-        timestamp: (new Date()).toISOString(),
-        useragent: req.headers['user-agent'],
-        value: value,
-    }
-    console.log(record);
-}
-
-function track(req, event : string, value : string) : void {
-    recordEvent(req, EventSource.Internal, event, value);
-}
 
 // Initiate the Express app
 var app = express();
@@ -72,7 +56,7 @@ app.use(function(req : Express.Request, res, next) {
 
     if(! req.session.condition) {
         req.session.condition = Conditions.Social;
-        track(req, 'condition', Conditions[req.session.condition]);
+        events.trackInternal(req, 'condition', Conditions[req.session.condition]);
     }
 
     next();
@@ -92,14 +76,14 @@ app.get('/', function(req, res) {
         browser = browser_detect.browserFromUseragent(req.headers['user-agent']);
     }
 
-    track(req, 'browser', browser_detect.Browser[browser]);
+    events.trackInternal(req, 'browser', browser_detect.Browser[browser]);
 
     renderResponseForBrowser(browser, req, res);
 });
 
 // Show the "unsafe" page
 app.get('/proceed', function(req, res) {
-    track(req, 'proceed', (new Date()).toISOString());
+    events.trackInternal(req, 'proceed', (new Date()).toISOString());
     res.render('unsafe');
 });
 
@@ -108,7 +92,7 @@ app.post('/event', function(req, res) {
     var value = req.body.value;
     // TODO: external event whitelist?
 
-    recordEvent(req, EventSource.External, name, value);
+    events.trackExternal(req, name, value);
 
     res.send('OK');
 });
