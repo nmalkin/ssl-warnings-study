@@ -16,56 +16,17 @@ import morgan = require('morgan');
 import path = require('path');
 import useragent = require('useragent');
 
-enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
+import browser_detect = require('./browser');
+
 enum Conditions { Control, Social };
 enum EventSource { External, Internal };
-type Filename = string;
 
-/**
- * Parse string browser names into the concrete Browser type
- *
- * The source browser names used are the "family" values from the useragent
- * library.
- */
-function parseBrowser(browser : string) : Browser {
-    switch(browser) {
-        case 'Chrome':
-            return Browser.Chrome;
-        case 'Edge':
-            return Browser.Edge;
-        case 'Firefox':
-            return Browser.Firefox;
-        case 'IE': // TODO: is this is the proper string for IE?
-            return Browser.InternetExplorer;
-        default:
-            return Browser.Other;
-    }
-}
-
-/**
- * Provide the filename of the warning for the given browser
- */
-function filenameForBrowser(browser : Browser) : Filename {
-    var filename: Filename;
-    switch(browser) {
-        case Browser.Chrome:
-           return 'chrome';
-        case Browser.Edge:
-           return 'edge';
-        case Browser.Firefox:
-           return 'firefox';
-        case Browser.InternetExplorer:
-           return 'ie';
-        case Browser.Other:
-           return 'other';
-    }
-}
 
 /**
  * Render a warning page based on the given browser
  */
-function renderResponseForBrowser(browser : Browser, req : express.Request, res : express.Response) : void {
-    var view = path.join('warnings', filenameForBrowser(browser));
+function renderResponseForBrowser(browser : browser_detect.Browser, req : express.Request, res : express.Response) : void {
+    var view = path.join('warnings', browser_detect.filenameForBrowser(browser));
     res.render(view, {
         condition: req.session.condition,
         domain: req.headers['host']
@@ -122,18 +83,18 @@ app.set('view engine', 'ejs');
 
 // Show the warning
 app.get('/', function(req, res) {
-    var browser : Browser;
+    var browser : browser_detect.Browser;
 
     // Decide which browser warning to serve
     if('browser' in req.query) {
         // Allow 'browser' query argument to override actual user agent
-        browser = parseBrowser(req.query.browser);
+        browser = browser_detect.parseBrowser(req.query.browser);
     } else {
         var agent = useragent.lookup(req.headers['user-agent']);
-        browser = parseBrowser(agent.family);
+        browser = browser_detect.parseBrowser(agent.family);
     }
 
-    track(req, 'browser', Browser[browser]);
+    track(req, 'browser', browser_detect.Browser[browser]);
 
     renderResponseForBrowser(browser, req, res);
 });
