@@ -16,11 +16,11 @@ RUN ./node_modules/.bin/tsd install
 COPY typings/local typings/local
 
 # Compile server
-COPY index.ts .
-RUN ./node_modules/.bin/tsc --module commonjs *.ts
+COPY src/server src/server
+RUN ./node_modules/.bin/tsc --module commonjs --outdir build src/server/*.ts
 
 # Compile client
-COPY src src
+COPY src/client src/client
 RUN ./node_modules/.bin/tsc --outDir static/js src/client/*.ts
 
 # Bring in static files
@@ -28,4 +28,4 @@ COPY views views
 COPY static static
 
 EXPOSE 8080
-CMD ["node", "index.js"]
+CMD ["node", "build/index.js"]

@@ -1,9 +1,9 @@
-/// <reference path='typings/vendor/body-parser/body-parser.d.ts' />
-/// <reference path='typings/vendor/express/express.d.ts' />
-/// <reference path='typings/vendor/morgan/morgan.d.ts' />
-/// <reference path='typings/vendor/node/node.d.ts' />
-/// <reference path='typings/local/cookie-session.d.ts' />
-/// <reference path='typings/local/useragent.d.ts' />
+/// <reference path='../../typings/vendor/body-parser/body-parser.d.ts' />
+/// <reference path='../../typings/vendor/express/express.d.ts' />
+/// <reference path='../../typings/vendor/morgan/morgan.d.ts' />
+/// <reference path='../../typings/vendor/node/node.d.ts' />
+/// <reference path='../../typings/local/cookie-session.d.ts' />
+/// <reference path='../../typings/local/useragent.d.ts' />
 
 'use strict';
 
@@ -154,5 +154,5 @@ app.post('/event', function(req, res) {
     res.send('OK');
 });
 
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(__dirname + '/../static'));
 app.listen(8080);
