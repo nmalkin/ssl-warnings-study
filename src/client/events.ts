@@ -10,20 +10,29 @@ function sendEvent(e : TrackingEvent) {
     req.send(JSON.stringify(e));
 }
 
+function sendTimestampEvent(name : string) : void {
+    sendEvent({
+        name: name,
+        value: (new Date()).toISOString()
+    });
+}
+
 function listenForClicks() {
     var elements = document.querySelectorAll('[data-track]');
     Array.prototype.forEach.call(elements, function(element) {
         var eventName : string = element.attributes['data-track'].value;
         element.addEventListener('click', function(e) {
-            var event = {
-                name: eventName,
-                value: (new Date()).toISOString()
-            };
-            sendEvent(event);
+            sendTimestampEvent(eventName);
         });
     });
 }
 
+function sendHeartbeat() : void {
+    sendTimestampEvent('heartbeat');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    sendTimestampEvent('load');
     listenForClicks();
+    window.setInterval(sendHeartbeat, 1000);
 });
