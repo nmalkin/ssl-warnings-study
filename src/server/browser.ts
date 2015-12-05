@@ -1,3 +1,5 @@
+/// <reference path='../../typings/local/useragent.d.ts' />
+
 import useragent = require('useragent');
 
 export enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};

@@ -28,4 +28,4 @@ COPY views views
 COPY static static
 
 EXPOSE 8080
-CMD ["node", "build/index.js"]
+CMD ["node", "build/server.js"]
