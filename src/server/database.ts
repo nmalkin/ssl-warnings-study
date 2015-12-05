@@ -39,7 +39,7 @@ var connection = connect();
 export function execute(statement : string, values : any) : void {
     connection.query(statement, values, function(err, rows, fields) {
         if(err) {
-            throw err;
+            console.error(err);
         }
     });
 }
