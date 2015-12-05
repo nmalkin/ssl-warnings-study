@@ -7,6 +7,7 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "morgan": "^1.6.1",
+    "mysql": "^2.9.0",
     "useragent": "^2.1.7"
   },
   "devDependencies": {

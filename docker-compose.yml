@@ -1,9 +1,3 @@
-warning_server:
-  build: .
-  ports:
-    - "80:8080"
-  links:
-    - mysql
 mysql_data:
   volumes:
     - /var/lib/mysql
@@ -15,3 +9,16 @@ mysql:
     - mysql_data
   environment:
     - MYSQL_ROOT_PASSWORD=CHANGEIT
+    - MYSQL_DATABASE=warnings
+    - MYSQL_USER=warning_user
+    - MYSQL_PASSWORD=CHANGEIT
+warning_server:
+  build: .
+  ports:
+    - "80:8080"
+  links:
+    - mysql
+  environment:
+    - MYSQL_DATABASE=warnings
+    - MYSQL_USER=warning_user
+    - MYSQL_PASSWORD=CHANGEIT
