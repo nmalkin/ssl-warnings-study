@@ -19,6 +19,7 @@ warning_server:
   links:
     - mysql
   environment:
+    - MYSQL_HOST=mysql
     - MYSQL_DATABASE=warnings
     - MYSQL_USER=warning_user
     - MYSQL_PASSWORD=CHANGEIT

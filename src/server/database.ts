@@ -7,7 +7,7 @@ import mysql = require('mysql');
  */
 function connect() : mysql.IConnection {
     var connection = mysql.createConnection({
-        host: 'mysql', // With Docker compose, the app name becomes the hostname.
+        host: process.env['MYSQL_HOST'],
         database: process.env['MYSQL_DATABASE'],
         user: process.env['MYSQL_USER'],
         password: process.env['MYSQL_PASSWORD']
