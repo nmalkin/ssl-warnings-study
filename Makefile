@@ -18,5 +18,6 @@ logs:
 
 run:
 	docker run -d --name $(appname) \
-		-p 80:8080 \
+		-p 80:80 \
+		-p 443:443
 		$(appname)

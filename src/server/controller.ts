@@ -8,14 +8,24 @@ import view = require('./view');
 /**
  * Make sure every user has a session token and is assigned a condition
  */
-export function sessionManager(req : Express.Request, res, next) {
+export function sessionManager(req, res, next) {
+    // Get a unique session ID
     if(! req.session.id) {
         req.session.id = crypto.randomBytes(64).toString('hex');
     }
 
+    // Establish the condition for this participant
     if(! req.session.condition) {
         req.session.condition = conditions.assignNext();
-        events.trackInternal(req, 'condition', conditions.asString(req.session.condition));
+        events.trackInternal(req, 'condition',
+            conditions.asString(req.session.condition));
+    }
+
+    // Detect the browser
+    if(! req.session.browser) {
+        req.session.browser = browser_detect.browserFromUseragent(req.headers['user-agent']);
+        events.trackInternal(req, 'browser',
+            browser_detect.Browser[req.session.browser]);
     }
 
     next();
@@ -32,12 +42,29 @@ export function warning(req, res) {
         // Allow 'browser' query argument to override actual user agent
         browser = browser_detect.parseBrowser(req.query.browser);
     } else {
-        browser = browser_detect.browserFromUseragent(req.headers['user-agent']);
+        browser = req.session.browser;
     }
 
-    events.trackInternal(req, 'browser', browser_detect.Browser[browser]);
+    // A supported browser is one whose warning we can emulate.
+    var supportedBrowser = (browser != browser_detect.Browser.Other);
 
-    view.renderResponseForBrowser(browser, req, res);
+    // Redirect user to HTTP or HTTPS version, depending on their browser
+    if(req.secure && supportedBrowser) {
+        // If the browser is supported, they should see an HTTP page.
+        var redirectTarget = 'http://' + req.headers['host'];
+        events.trackInternal(req, 'redirect', redirectTarget);
+        res.redirect(redirectTarget);
+    } else if(! (req.secure || supportedBrowser)) {
+        // If the browser isn't supported, they should see an HTTPS page.
+        var redirectTarget = 'https://' + req.headers['host'];
+        events.trackInternal(req, 'redirect', redirectTarget);
+        res.redirect(redirectTarget);
+    } else {
+        // If the user has the right combination of protocol and browser,
+        // we can actually show them the warning (if appropriate).
+        events.trackInternal(req, 'show_warning', browser_detect.Browser[browser]);
+        view.renderResponseForBrowser(browser, req, res);
+    }
 }
 
 /**

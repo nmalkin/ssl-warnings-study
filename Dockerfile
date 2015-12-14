@@ -26,6 +26,7 @@ RUN ./node_modules/.bin/tsc --outDir static/js src/client/*.ts
 # Bring in static files
 COPY views views
 COPY static static
+COPY certs certs
 
 EXPOSE 8080
 CMD ["node", "build/server.js"]

@@ -15,7 +15,8 @@ mysql:
 warning_server:
   build: .
   ports:
-    - "80:8080"
+    - "80:80"
+    - "443:443"
   links:
     - mysql
   environment:

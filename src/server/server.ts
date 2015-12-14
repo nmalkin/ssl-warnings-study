@@ -7,6 +7,9 @@
 import bodyParser = require('body-parser');
 import cookieSession = require('cookie-session');
 import express = require('express');
+import fs = require('fs');
+import http = require('http');
+import https = require('https');
 import morgan = require('morgan');
 
 import controller = require('./controller');
@@ -39,4 +42,11 @@ app.post('/event', controller.event);
 // Serve static files
 app.use(express.static(__dirname + '/../static'));
 
-app.listen(8080);
+// Provide keys for HTTPS
+var options = {
+    key: fs.readFileSync(__dirname + '/../certs/key.pem'),
+    cert: fs.readFileSync(__dirname + '/../certs/cert.pem')
+};
+
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(443);
