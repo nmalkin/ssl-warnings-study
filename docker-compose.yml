@@ -24,3 +24,5 @@ warning_server:
     - MYSQL_DATABASE=warnings
     - MYSQL_USER=warning_user
     - MYSQL_PASSWORD=CHANGEIT
+  volumes:
+    - ./views:/usr/src/app/views
