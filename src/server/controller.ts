@@ -72,7 +72,7 @@ export function warning(req, res) {
  */
 export function proceed(req, res) {
     events.trackInternal(req, 'proceed', (new Date()).toISOString());
-    res.render('unsafe');
+    res.render('target');
 }
 
 /**
