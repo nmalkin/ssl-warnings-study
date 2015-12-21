@@ -5,11 +5,12 @@ import browser_detect = require('./browser');
 /**
  * Render a warning page based on the given browser
  */
-export function renderResponseForBrowser(browser : browser_detect.Browser, req, res) : void {
-    // Unsupported browsers go straight to the unsafe page
-    // (but it will be served over self-signed HTTPS)
+export function warning(browser : browser_detect.Browser, req, res) : void {
+    // Unsupported browsers see the target ("unsafe") page.
+    // (However, at this point, they should have been redirected to HTTPS and
+    // have consequently seen a warning due to self-signed HTTPS.)
     if(browser === browser_detect.Browser.Other) {
-        res.redirect('/proceed');
+        target(res);
         return;
     }
 
@@ -18,4 +19,8 @@ export function renderResponseForBrowser(browser : browser_detect.Browser, req, 
         condition: req.session.condition,
         domain: req.headers['host']
     });
+}
+
+export function target(res) {
+    res.render('target');
 }

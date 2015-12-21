@@ -31,8 +31,30 @@ function sendHeartbeat() : void {
     sendTimestampEvent('heartbeat');
 }
 
+function handleProceed() {
+    // Find the element that triggers the next page
+    document.querySelector('[data-proceed]')
+    // Wait for it to be clicked
+    .addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Report the action to the server
+        var req = new XMLHttpRequest();
+        req.open('POST', '/proceed');
+        req.onload = function() {
+            if(req.status === 200) {
+                // Reload after hearing back
+                window.location.reload(true);
+            }
+        }
+        req.send();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     sendTimestampEvent('load');
+
     listenForClicks();
+    handleProceed();
     window.setInterval(sendHeartbeat, 1000);
 });

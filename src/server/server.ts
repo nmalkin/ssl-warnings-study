@@ -35,9 +35,10 @@ app.use(controller.sessionManager);
 app.set('view engine', 'ejs');
 
 // App routes
-app.get('/', controller.warning);
-app.get('/proceed', controller.proceed);
+app.get('/', controller.main);
+app.post('/proceed', controller.proceed);
 app.post('/event', controller.event);
+app.get('/reset', controller.reset);
 
 // Serve static files
 app.use(express.static(__dirname + '/../static'));

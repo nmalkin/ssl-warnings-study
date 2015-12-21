@@ -38,4 +38,11 @@ export function trackInternal(req, event : string, value : string) : void {
     recordEvent(req, EventSource.Internal, event, value);
 }
 
+/**
+ * Tracks the given event name, with the current timestamp as the payload
+ */
+export function trackInternalMoment(req, event : string) : void {
+    trackInternal(req, 'proceed', (new Date()).toISOString());
+}
+
 setupDatabase();

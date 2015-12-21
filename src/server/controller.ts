@@ -28,51 +28,96 @@ export function sessionManager(req, res, next) {
             browser_detect.Browser[req.session.browser]);
     }
 
+    // Set up session state
+    if(! req.session.proceed) {
+        req.session.proceed = false;
+    }
+
     next();
 }
 
 /**
- * Show the warning
+ * Logic for the application's main page
+ *
+ * It takes care of:
+ * - Getting the visitor's browser
+ * - Making sure they're using the appropriate protocol (HTTP vs HTTPS)
+ * - Serving the warning (if they're supposed to see it and haven't clicked through)
+ * - Serving the target page otherwise
  */
-export function warning(req, res) {
+export function main(req, res) {
     var browser : browser_detect.Browser;
 
-    // Decide which browser warning to serve
+    // Allow 'browser' query argument to override actual user agent
     if('browser' in req.query) {
-        // Allow 'browser' query argument to override actual user agent
         browser = browser_detect.parseBrowser(req.query.browser);
     } else {
         browser = req.session.browser;
     }
 
-    // A supported browser is one whose warning we can emulate.
-    var supportedBrowser = (browser != browser_detect.Browser.Other);
+    // Depending on the user's browser, we may want to redirect them from the
+    // HTTP version of the site to the HTTPS one (or vice versa).
+    if(redirectBasedOnBrowser(browser, req, res)) {
+        return;
+    }
 
-    // Redirect user to HTTP or HTTPS version, depending on their browser
-    if(req.secure && supportedBrowser) {
-        // If the browser is supported, they should see an HTTP page.
-        var redirectTarget = 'http://' + req.headers['host'];
-        events.trackInternal(req, 'redirect', redirectTarget);
-        res.redirect(redirectTarget);
-    } else if(! (req.secure || supportedBrowser)) {
-        // If the browser isn't supported, they should see an HTTPS page.
-        var redirectTarget = 'https://' + req.headers['host'];
-        events.trackInternal(req, 'redirect', redirectTarget);
-        res.redirect(redirectTarget);
+    if(req.session.proceed) {
+        view.target(res);
+
+        events.trackInternalMoment(req, 'show_target');
     } else {
-        // If the user has the right combination of protocol and browser,
-        // we can actually show them the warning (if appropriate).
+        view.warning(browser, req, res);
+
         events.trackInternal(req, 'show_warning', browser_detect.Browser[browser]);
-        view.renderResponseForBrowser(browser, req, res);
     }
 }
 
 /**
- * Show the unsafe page
+ * Redirect user to HTTP or HTTPS version, depending on their browser
+ *
+ * Returns true if the user was redirected.
+ */
+function redirectBasedOnBrowser( browser : browser_detect.Browser, req, res) : boolean {
+    // A supported browser is one whose warning we can emulate.
+    var supportedBrowser = (browser != browser_detect.Browser.Other);
+
+    if(req.secure && supportedBrowser) {
+        // If the browser is supported, they should see an HTTP page.
+        var redirectTarget = 'http://' + req.headers['host'];
+        res.redirect(redirectTarget);
+
+        events.trackInternal(req, 'redirect', redirectTarget);
+        return true;
+    } else if(! (req.secure || supportedBrowser)) {
+        // If the browser isn't supported, they should see an HTTPS page.
+        // Since it's served with a bad cert, this ensures they see an SSL
+        // warning anyway.
+        var redirectTarget = 'https://' + req.headers['host'];
+        res.redirect(redirectTarget);
+
+        events.trackInternal(req, 'redirect', redirectTarget);
+        return true;
+    }
+
+    return false
+}
+
+/**
+ * Save the user's decision to proceed
  */
 export function proceed(req, res) {
-    events.trackInternal(req, 'proceed', (new Date()).toISOString());
-    res.render('target');
+    req.session.proceed = true;
+    events.trackInternalMoment(req, 'proceed');
+    res.send('OK');
+}
+
+/**
+ * Reset application state
+ */
+export function reset(req, res) {
+    req.session.proceed = false;
+    events.trackInternalMoment(req, 'reset');
+    res.send('OK');
 }
 
 /**

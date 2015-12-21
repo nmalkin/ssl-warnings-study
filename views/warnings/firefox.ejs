@@ -167,15 +167,10 @@ The certificate is not trusted because no issuer chain was provided.
         <div>
           <p>If you understand what's going on, you can tell Firefox to start trusting this site's identification. <b>Even if you trust the site, this error could mean that someone is tampering with your connection.</b></p>
           <p>Don't add an exception unless you know there's a good reason why this site doesn't use trusted identification.</p>
-          <button id='exceptionDialogButton' data-track='firefox-add-exception'>Add Exception…</button>
+          <button id='exceptionDialogButton' data-track='firefox-add-exception' data-proceed='1'>Add Exception…</button>
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-        document.getElementById('exceptionDialogButton').onclick = function() {
-            window.location = "/proceed";
-        };
-    </script>
     <script type="text/javascript" src="/js/events.js"></script>
   </body>
 </html>

@@ -21,7 +21,7 @@ RUN ./node_modules/.bin/tsc --module commonjs --outdir build src/server/*.ts
 
 # Compile client
 COPY src/client src/client
-RUN ./node_modules/.bin/tsc --outDir static/js src/client/*.ts
+RUN ./node_modules/.bin/tsc --outDir static/js --removeComments src/client/*.ts
 
 # Bring in static files
 COPY views views
