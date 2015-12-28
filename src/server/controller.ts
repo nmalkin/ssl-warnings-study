@@ -48,6 +48,11 @@ export function sessionManager(req, res, next) {
 export function main(req, res) {
     var browser : browser_detect.Browser;
 
+    // Track referral code
+    if('r' in req.query) {
+        events.trackExternal(req, 'referral', req.query.r);
+    }
+
     // Allow 'browser' query argument to override actual user agent
     if('browser' in req.query) {
         browser = browser_detect.parseBrowser(req.query.browser);
