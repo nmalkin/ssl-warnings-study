@@ -1,4 +1,4 @@
-enum Conditions { Control, Social };
+export enum Conditions { Control, Social };
 
 export function assignNext() : Conditions {
     // Randomly choose between conditions
@@ -13,4 +13,13 @@ export function assignNext() : Conditions {
 
 export function asString(condition : Conditions) : string {
     return Conditions[condition];
+}
+
+export function parseCondition(condition : string) : Conditions {
+    switch(condition) {
+        case 'social':
+            return Conditions.Social;
+        default:
+            return Conditions.Control;
+    }
 }

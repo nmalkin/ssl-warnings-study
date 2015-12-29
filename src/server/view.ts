@@ -1,11 +1,12 @@
 import path = require('path');
 
 import browser_detect = require('./browser');
+import conditions = require('./conditions');
 
 /**
  * Render a warning page based on the given browser
  */
-export function warning(browser : browser_detect.Browser, req, res) : void {
+export function warning(browser : browser_detect.Browser, condition : conditions.Conditions, domain : string, res) : void {
     // Unsupported browsers see the target ("unsafe") page.
     // (However, at this point, they should have been redirected to HTTPS and
     // have consequently seen a warning due to self-signed HTTPS.)
@@ -16,8 +17,8 @@ export function warning(browser : browser_detect.Browser, req, res) : void {
 
     var view = path.join('warnings', browser_detect.filenameForBrowser(browser));
     res.render(view, {
-        condition: req.session.condition,
-        domain: req.headers['host']
+        condition: condition,
+        domain: domain
     });
 }
 

@@ -46,21 +46,28 @@ export function sessionManager(req, res, next) {
  * - Serving the target page otherwise
  */
 export function main(req, res) {
-    var browser : browser_detect.Browser;
-
     // Track referral code
     if('r' in req.query) {
         events.trackExternal(req, 'referral', req.query.r);
     }
 
     // Allow 'browser' query argument to override actual user agent
+    var browser : browser_detect.Browser;
     if('browser' in req.query) {
         browser = browser_detect.parseBrowser(req.query.browser);
     } else {
         browser = req.session.browser;
     }
 
-    // Depending on the user's browser, we may want to redirect them from the
+    // Allow 'condition' query argument to override condition setting
+    var condition : conditions.Conditions;
+    if('condition' in req.query) {
+        condition = conditions.parseCondition(req.query.condition);
+    } else {
+        condition = req.session.condition;
+    }
+
+    // Depending on the user's condition, we may want to redirect them from the
     // HTTP version of the site to the HTTPS one (or vice versa).
     if(redirectBasedOnBrowser(browser, req, res)) {
         return;
@@ -71,7 +78,8 @@ export function main(req, res) {
 
         events.trackInternalMoment(req, 'show_target');
     } else {
-        view.warning(browser, req, res);
+        var domain = req.headers['host'];
+        view.warning(browser, condition, domain, res);
 
         events.trackInternal(req, 'show_warning', browser_detect.Browser[browser]);
     }
