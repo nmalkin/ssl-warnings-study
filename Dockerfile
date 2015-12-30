@@ -28,5 +28,5 @@ COPY views views
 COPY static static
 COPY certs certs
 
-EXPOSE 8080
+EXPOSE 80 443
 CMD ["node", "build/server.js"]
