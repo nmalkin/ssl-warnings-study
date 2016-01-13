@@ -23,10 +23,13 @@ function connect() : mysql.IConnection {
     });
 
 
-    process.on('exit', function () {
+    var shutdown = function () {
         console.log('Shutting down database connection');
-        connection.end();
-    });
+        connection.end(function(err) {
+            process.exit();
+        });
+    };
+    process.on('SIGTERM', shutdown);
 
     return connection;
 }

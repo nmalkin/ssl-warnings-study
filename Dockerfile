@@ -10,6 +10,12 @@ WORKDIR /usr/src/app
 COPY package.json .
 RUN npm install
 
+# Use an init system to properly handle signals
+ENV TINI_VERSION v0.8.4
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
+
 # Retrieve typings for Typescript
 COPY tsd.json .
 RUN ./node_modules/.bin/tsd install
