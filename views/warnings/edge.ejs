@@ -22,6 +22,16 @@
                         <p id="invalidcert_body2">The security certificate for this site doesn&rsquo;t match the site&rsquo;s web address and may indicate an attempt to fool you or intercept any data you send to the server.</p>
                         <% if(condition == 1) { %>
                         <p style="font-weight:bold">81.3% of people who saw this warning clicked "Go to my homepage instead."</p>
+                        <% } else if(condition == 2) { %>
+                        <p style="font-weight:bold">Security experts strongly recommend clicking "Go to my homepage instead."</p>
+                        <% } else if(condition == 3) { %>
+                        <p style="font-weight:bold">Clicking "Go to my homepage instead" significantly reduces the risk of identity theft.</p>
+                        <% } else if(condition == 4) { %>
+                        <p style="font-weight:bold">Not clicking "Go to my homepage instead" significantly increases the risk of identity theft.</p>
+                        <% } else if(condition == 5) { %>
+                        <p style="font-weight:bold">Clicking "Go to my homepage instead" has been found to reduce the risk of identity theft by 81.3%.</p>
+                        <% } else if(condition == 6) { %>
+                        <p style="font-weight:bold">Clicking "Go to my homepage instead" is enough to protect you from identity theft in many cases.</p>
                         <% } %>
                         <br />
                         <table>

@@ -1,14 +1,15 @@
-export enum Conditions { Control, Social };
+export enum Conditions { Control, Social, Expertise, PositiveFrame, NegativeFrame, Statistics, Difficulty };
+var conditionCount : number = 7;
+
+/**
+ * Return a random condition
+ */
+function randomCondition() : Conditions {
+    return Math.floor(Math.random() * conditionCount);
+}
 
 export function assignNext() : Conditions {
-    // Randomly choose between conditions
-    var random : number = Math.floor(Math.random() * 2);
-
-    if(random == 0) {
-        return Conditions.Control;
-    } else {
-        return Conditions.Social;
-    }
+    return randomCondition();
 }
 
 export function asString(condition : Conditions) : string {
@@ -16,10 +17,5 @@ export function asString(condition : Conditions) : string {
 }
 
 export function parseCondition(condition : string) : Conditions {
-    switch(condition) {
-        case 'social':
-            return Conditions.Social;
-        default:
-            return Conditions.Control;
-    }
+    return Conditions[condition] || Conditions.Control;
 }

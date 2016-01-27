@@ -1498,6 +1498,16 @@ document.addEventListener('DOMContentLoaded', setupEvents);
 
       <% if(condition == 1) { %>
       <p style="font-weight:bold">81.3% of people who saw this warning clicked "Back to safety."</p>
+      <% } else if(condition == 2) { %>
+      <p style="font-weight:bold">Security experts strongly recommend clicking "Back to safety."</p>
+      <% } else if(condition == 3) { %>
+      <p style="font-weight:bold">Clicking "Back to safety" significantly reduces the risk of identity theft.</p>
+      <% } else if(condition == 4) { %>
+      <p style="font-weight:bold">Not clicking "Back to safety" significantly increases the risk of identity theft.</p>
+      <% } else if(condition == 5) { %>
+      <p style="font-weight:bold">Clicking "Back to safety" has been found to reduce the risk of identity theft by 81.3%.</p>
+      <% } else if(condition == 6) { %>
+      <p style="font-weight:bold">Clicking "Back to safety" is enough to protect you from identity theft in many cases.</p>
       <% } %>
 
       <div id="extended-reporting-opt-in" class="ssl-opt-in">
