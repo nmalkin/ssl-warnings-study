@@ -1,0 +1,310 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://global/skin/in-content/common.css");
+
+body {
+  display: flex;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 0 48px;
+  align-items: center;
+  justify-content: center;
+  --moz-background-height: 32px;
+  --moz-vertical-spacing: 10px;
+}
+
+#networkError {
+	background-image: linear-gradient(-45deg, #eeeeee,     #eeeeee 33%,
+                                            #fbfbfb 33%, #fbfbfb 66%,
+                                            #eeeeee 66%, #eeeeee);
+	background-size: 64px 32px;
+	background-repeat: repeat-x;
+}
+
+#certError {
+	background-image: linear-gradient(-45deg, #f0d000,     #f0d000 33%,
+                                            #fedc00 33%, #fedc00 66%,
+                                            #f0d000 66%, #f0d000);
+	background-size: 64px 32px;
+	background-repeat: repeat-x;
+}
+
+#blockedSite {
+	background-image: linear-gradient(-45deg, #9b2e2e,     #9b2e2e 33%,
+		                                        #a83232 33%, #a83232 66%,
+		                                        #9b2e2e 66%, #9b2e2e);
+	background-size: 64px 32px;
+	background-repeat: repeat-x;
+	background-color: #b14646;
+	color: white;
+}
+
+#blockedsite h1 {
+  border-bottom-color: #9b2e2e;
+}
+
+#blockedsite button {
+  background-color: #9b2e2e;
+  color: white;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  -moz-margin-start: 1em;
+}
+
+ul > li, ol > li {
+  margin-bottom: .5em;
+}
+
+ul {
+  list-style: disc;
+}
+
+#errorPageContainer {
+  position: relative;
+  min-width: 270px;
+  max-width: 512px;
+}
+
+#errorTitle {
+  background: url("aboutNetError_info_45.svg") left 0 no-repeat;
+  background-size: 3em;
+  -moz-margin-start: -5em;
+  -moz-padding-start: 5em;
+}
+
+#errorTitleNotConnected {
+  background: url("aboutNotConnected_info_45.svg") left 0 no-repeat;
+  background-size: 3em;
+  -moz-margin-start: -5em;
+  -moz-padding-start: 5em;
+}
+
+#errorTitleText {
+  border-bottom: 1px solid #C1C1C1;
+  padding-bottom: 0.4em;
+}
+
+#errorTitleText:-moz-dir(rtl) {
+  background-position: right 0;
+}
+
+#errorTitleText[sslv3=true] {
+  background-image: url("aboutNetError_alert.svg");
+}
+
+#errorTryAgain {
+  margin-top: 1.2em;
+  min-width: 150px
+}
+
+#errorContainer {
+  display: none;
+}
+
+/* Design for narrow layouts */
+
+@media (max-height: 359px) {
+  body {
+  	background-size: 64px 16px;
+  }
+}
+
+@media (max-width: 549px) {
+
+	body {
+		margin: 0;
+		padding: 0 20px;
+		height: 100%;
+		font-size: 14px;
+	}
+  
+  h1 {
+  	font-size: 2.25em;	
+  }
+  
+  button {
+  	/* Force buttons to display: block here to try and enfoce collapsing margins */
+		display: block;
+		width: 100%;
+		border: none;
+		padding: 1rem;
+		background-color: #e0e2e5;
+		font-size: 16px;
+		font-weight: 300;
+		background-image: none;
+		margin: var(--moz-vertical-spacing) 0 0;
+	}
+	
+	#errorTitleText {
+		padding-bottom: 0;
+		border-bottom: none;
+	}
+}
+
+/* On large screen devices (hopefully a 7+ inch tablet, we already center content (see #errorPageContainer above).
+   Apply tablet specific styles here */
+@media (min-width: 550px) {
+  button {
+    min-width: 180px;
+  }
+
+  /* If the tablet is tall as well, add some padding to make content feel a bit more centered */
+  @media (min-height: 550px) {
+    #errorPageContainer {
+      padding-top: 64px;
+      min-height: calc(100% - 64px);
+    }
+  }
+}
+
+/* Hide SVG images when it gets too narrow */
+@media (max-width: 719px) {
+	#errorTitle,
+  #errorTitleNotConnected {
+    padding-top: 0;
+    background-image: none;
+    -moz-padding-start: 0;
+    -moz-margin-start: 0;
+  }
+}
+
+/* Make button a bit larger for tablet-sized layouts */
+@media (min-width: 550px) and (max-width: 1280px) {
+	button {
+		padding: .66rem;
+		width: auto;
+		border: none;
+		padding: .85rem;
+		background-color: #e0e2e5;
+		font-size: 15px;
+		font-weight: 300;
+		background-image: none;
+	}
+}
+
+/* Pressing the retry button will cause the cursor to flicker from a pointer to
+ * not-allowed. Override the disabled cursor behaviour since we will never show
+ * the button disabled as the initial state. */
+button:disabled {
+  cursor: pointer;
+}
+
+div#certificateErrorReporting {
+  display: block;
+  float: left;
+  clear: right;
+  /* Align with the "Try Again" button */
+  margin-top: 24px;
+  -moz-margin-end: 24px;
+}
+
+div#certificateErrorReporting a {
+  text-decoration: none;
+}
+
+div#certificateErrorReporting a:hover {
+  text-decoration: underline;
+}
+
+span.downArrow {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.6em;
+  -moz-margin-start: 0.5em;
+  transform: scaleY(0.7);
+}
+
+div#certificateErrorReportingPanel {
+  /* Hidden until the link is clicked */
+  display: block;
+  background-color: white;
+  border: 1px lightgray solid;
+  /* Don't use top padding because the default p style has top padding, and it
+   * makes the overall div look uneven */
+  padding: 0 12px 12px 12px;
+  box-shadow: 0 0 4px #ddd;
+  font-size: 0.9em;
+  /* Remove width to make it as wide as everything else on the page */
+  /* width: 100%; */
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+#errorStatePanel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: flex-start;
+}
+
+span#hostname {
+  font-weight: bold;
+}
+
+#automaticallyReportInFuture {
+  cursor: pointer;
+}
+
+#reportCertificateError {
+  background-color: #d83812;
+  border-radius: 3px;
+  border: none;
+  display: inline-block;
+  color: var(--in-content-selected-text);
+  cursor: pointer;
+  height: auto;
+  margin: 1.25em 12.5% .5em 12.5%;
+  padding: 6px 24px;
+  text-decoration: none;
+  width: 75%;
+}
+#reportCertificateError:hover {
+  background-color: #c73510;
+}
+#reportCertificateError:hover:active {
+  background-color: #9e2a0d;
+}
+
+#certificateErrorDebugInformation {
+  display: none;
+  background-color: var(--in-content-box-background-hover) !important;
+  border-top: 1px solid var(--in-content-border-color); 
+  position: absolute;
+  left: 0%;
+  top: 100%;
+  width: 65%;
+  padding: 1% 17.5% 2%;
+}
+#certificateErrorText {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.returnButton {
+  background-color: var(--in-content-primary-button-background);
+  border: none;
+  color: var(--in-content-selected-text);
+  min-width: 250px !important;
+}
+.returnButton:hover {
+  background-color: var(--in-content-primary-button-background-hover) !important;
+}
+.returnButton:hover:active {
+  background-color: var(--in-content-primary-button-background-active) !important;
+}
+
+.advancedButton {
+  float: right !important;
+}
+
+.fade {
+  color: var(--in-content-text-color) !important;
+  opacity: 0.5;
+}
