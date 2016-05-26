@@ -54,7 +54,11 @@ export function main(req, res) {
     // Allow 'browser' query argument to override actual user agent
     var browser : browser_detect.Browser;
     if('browser' in req.query) {
-        browser = browser_detect.parseBrowser(req.query.browser);
+        var browserVersion = '';
+        if('browser_version' in req.query) {
+            browserVersion = req.query.browser_version;
+        }
+        browser = browser_detect.parseBrowser(req.query.browser, browserVersion);
     } else {
         browser = req.session.browser;
     }

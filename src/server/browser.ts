@@ -2,7 +2,7 @@
 
 import useragent = require('useragent');
 
-export enum Browser { Chrome, Edge, Firefox, InternetExplorer, Other};
+export enum Browser { Chrome, Edge, Firefox, FirefoxNew, InternetExplorer, Other};
 type Filename = string;
 
 /**
@@ -11,14 +11,18 @@ type Filename = string;
  * The source browser names used are the "family" values from the useragent
  * library.
  */
-export function parseBrowser(browser : string) : Browser {
+export function parseBrowser(browser : string, version : string) : Browser {
     switch(browser) {
         case 'Chrome':
             return Browser.Chrome;
         case 'Edge':
             return Browser.Edge;
         case 'Firefox':
-            return Browser.Firefox;
+            if(parseInt(version) >= 44) {
+                return Browser.FirefoxNew;
+            } else {
+                return Browser.Firefox;
+            }
         case 'IE': // TODO: is this is the proper string for IE?
             return Browser.InternetExplorer;
         default:
@@ -38,6 +42,8 @@ export function filenameForBrowser(browser : Browser) : Filename {
            return 'edge';
         case Browser.Firefox:
            return 'firefox';
+        case Browser.FirefoxNew:
+           return 'firefox_new';
         case Browser.InternetExplorer:
            return 'ie';
         case Browser.Other:
@@ -50,5 +56,5 @@ export function filenameForBrowser(browser : Browser) : Filename {
  */
 export function browserFromUseragent(rawUseragent : string) : Browser {
     var detectedUseragent = useragent.lookup(rawUseragent);
-    return parseBrowser(detectedUseragent.family);
+    return parseBrowser(detectedUseragent.family, detectedUseragent.major);
 }
