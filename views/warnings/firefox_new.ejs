@@ -571,6 +571,21 @@ functionality specific to firefox. -->
         <!-- Short Description -->
         <div id="errorShortDesc">
           <p id="errorShortDescText">The owner of <span id="hostname">expired.badssl.com</span> has configured their website improperly.  To protect your information from being stolen, Firefox has not connected to this website.</p>
+
+            <% if(condition == 1) { %>
+            <p style="font-weight:bold">81.3% of people who saw this warning clicked "Get me out of here."</p>
+            <% } else if(condition == 2) { %>
+            <p style="font-weight:bold">Security experts strongly recommend clicking "Get me out of here."</p>
+            <% } else if(condition == 3) { %>
+            <p style="font-weight:bold">Clicking "Get me out of here" significantly reduces the risk of online fraud.</p>
+            <% } else if(condition == 4) { %>
+            <p style="font-weight:bold">Not clicking "Get me out of here" significantly increases the risk of online fraud.</p>
+            <% } else if(condition == 5) { %>
+            <p style="font-weight:bold">Clicking "Get me out of here" has been found to reduce the risk of online fraud by 81.3%.</p>
+            <% } else if(condition == 6) { %>
+            <p style="font-weight:bold">Clicking "Get me out of here" is enough to protect you from online fraud in many cases.</p>
+            <% } %>
+
         </div>
         <div id="errorShortDesc">
           <p id="errorShortDescText"><a href="https://support.mozilla.org/kb/tls-error-reports" id="learnMoreLink" target="new">Learn more…</a></p>
