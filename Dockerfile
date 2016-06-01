@@ -30,9 +30,10 @@ COPY src/client src/client
 RUN ./node_modules/.bin/tsc --outDir static/js --removeComments src/client/*.ts
 
 # Bring in static files
+COPY certs certs
 COPY views views
 COPY static static
-COPY certs certs
+COPY decoy decoy
 
 EXPOSE 80 443
 CMD ["node", "build/server.js"]

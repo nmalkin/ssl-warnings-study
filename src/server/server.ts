@@ -42,6 +42,7 @@ app.get('/reset', controller.reset);
 
 // Serve static files
 app.use(express.static(__dirname + '/../static'));
+app.use(express.static(__dirname + '/../decoy'));
 
 // Provide keys for HTTPS
 var options = {
