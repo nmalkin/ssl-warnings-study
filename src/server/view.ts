@@ -1,3 +1,4 @@
+import fs = require('fs');
 import path = require('path');
 
 import browser_detect = require('./browser');
@@ -27,5 +28,7 @@ export function warning(browser : browser_detect.Browser, condition : conditions
 }
 
 export function target(res) {
-    res.render('target');
+    var decoyPage = fs.readFileSync('static/target/index.html');
+    res.set('Content-Type', 'text/html');
+    res.send(decoyPage);
 }
