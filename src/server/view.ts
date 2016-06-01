@@ -28,7 +28,7 @@ export function warning(browser : browser_detect.Browser, condition : conditions
 }
 
 export function target(res) {
-    var decoyPage = fs.readFileSync('static/target/index.html');
+    var decoyPage = fs.readFileSync('static/passthrough/index.html');
     res.set('Content-Type', 'text/html');
     res.send(decoyPage);
 }
