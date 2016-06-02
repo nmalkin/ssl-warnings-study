@@ -67,20 +67,20 @@ certificate.</p>
         <% } %>
 
         <div>
-          <p><a href="https://support.mozilla.org/kb/what-does-your-connection-is-not-secure-mean" id="learnMoreLink" target="new">Learn more…</a></p>
+          <p><a href="https://support.mozilla.org/kb/what-does-your-connection-is-not-secure-mean" id="learnMoreLink" target="new" data-track='firefox-new-learn-more'>Learn more…</a></p>
         </div>
 
         <div id="buttonContainer">
-          <button id="returnButton" autocomplete="off" autofocus="true">Go Back</button>
+          <button id="returnButton" autocomplete="off" autofocus="true" data-track='firefox-new-go-back'>Go Back</button>
           <div id="buttonSpacer"></div>
-          <button id="advancedButton" autocomplete="off" onclick="toggleVisibility('advancedPanel');" autofocus="true">Advanced</button>
+          <button id="advancedButton" autocomplete="off" onclick="toggleVisibility('advancedPanel');" autofocus="true" data-track='firefox-new-toggle-advanced'>Advanced</button>
         </div>
       </div>
 
       <!-- UI for option to report certificate errors to Mozilla. -->
       <div id="certificateErrorReporting" style="display: block;">
         <p>
-          <input type="checkbox" id="automaticallyReportInFuture" />
+          <input type="checkbox" id="automaticallyReportInFuture" data-track='firefox-new-report-errors' />
           <label for="automaticallyReportInFuture" id="automaticallyReportInFuture">Report errors like this to help Mozilla identify misconfigured sites</label>
 
           <span id="reportingState">
@@ -101,7 +101,7 @@ Error code: <a id="errorCode" title="SEC_ERROR_UNKNOWN_ISSUER"
     onclick="toggleCert();"
     href="#technicalInformation">SEC_ERROR_UNKNOWN_ISSUER</a>
 </p>
-        <button id="exceptionDialogButton">Add Exception…</button>
+        <button id="exceptionDialogButton" data-track='firefox-new-add-exception' data-proceed='1'>Add Exception…</button>
       </div>
     </div>
 
@@ -153,5 +153,6 @@ UK4zrvqIB6ah1dFxiuXEBYMejxo6eFliMHG7nTv10jpiv4wgqi4q5VGk
           }
          }
   </script>
+  <script type="text/javascript" src="/js/events.js"></script>
   </body>
 </html>
