@@ -3,6 +3,7 @@
 /// <reference path='../../typings/vendor/morgan/morgan.d.ts' />
 /// <reference path='../../typings/vendor/node/node.d.ts' />
 /// <reference path='../../typings/local/cookie-session.d.ts' />
+/// <reference path='../../typings/local/raven.d.ts' />
 
 import bodyParser = require('body-parser');
 import cookieSession = require('cookie-session');
@@ -11,8 +12,13 @@ import fs = require('fs');
 import http = require('http');
 import https = require('https');
 import morgan = require('morgan');
+import raven = require('raven');
 
 import controller = require('./controller');
+
+// Report errors to Sentry
+var client = new raven.Client(process.env.SENTRY_URL);
+client.patchGlobal();
 
 var app = express();
 
