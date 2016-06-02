@@ -97,7 +97,9 @@ certificate.</p>
 
 The certificate is not trusted because it is self-signed.
 
-Error code: <a id="errorCode" title="SEC_ERROR_UNKNOWN_ISSUER" href="#technicalInformation">SEC_ERROR_UNKNOWN_ISSUER</a>
+Error code: <a id="errorCode" title="SEC_ERROR_UNKNOWN_ISSUER"
+    onclick="toggleCert();"
+    href="#technicalInformation">SEC_ERROR_UNKNOWN_ISSUER</a>
 </p>
         <button id="exceptionDialogButton">Add Exception…</button>
       </div>
@@ -139,5 +141,17 @@ UK4zrvqIB6ah1dFxiuXEBYMejxo6eFliMHG7nTv10jpiv4wgqi4q5VGk
 </div>
       <button id="copyToClipboard">Copy text to clipboard</button>
     </div>
+
+    <script>
+        function toggleCert() {
+          var div = document.getElementById("certificateErrorDebugInformation");
+          if (div.style.display == "block") {
+            div.style.display = "none";
+          } else {
+            div.style.display = "block";
+            div.scrollIntoView(true);
+          }
+         }
+  </script>
   </body>
 </html>
