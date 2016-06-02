@@ -45,7 +45,7 @@
 
         <!-- Short Description -->
         <div id="errorShortDesc">
-          <p>The owner of <span class="hostname">self-signed.badssl.com</span> has configured their website improperly.  To protect your information from being stolen, Firefox has not connected to this website.</p>
+          <p>The owner of <span class="hostname"><%= domain %></span> has configured their website improperly.  To protect your information from being stolen, Firefox has not connected to this website.</p>
         </div>
         <p hidden="true" id="badStsCertExplanation">This site uses HTTP
 Strict Transport Security (HSTS) to specify that Firefox only connect
@@ -93,7 +93,7 @@ certificate.</p>
 
       <!-- Advanced panel, which is hidden by default -->
       <div id="advancedPanel" style="visibility: hidden;">
-        <p id="technicalContentText">self-signed.badssl.com uses an invalid security certificate.
+        <p id="technicalContentText"><%= domain %> uses an invalid security certificate.
 
 The certificate is not trusted because it is self-signed.
 
@@ -106,7 +106,7 @@ Error code: <a id="errorCode" title="SEC_ERROR_UNKNOWN_ISSUER" href="#technicalI
     <div id="certificateErrorDebugInformation" style="display: none;">
       <a name="technicalInformation"></a>
       <button id="copyToClipboard">Copy text to clipboard</button>
-      <div id="certificateErrorText">https://self-signed.badssl.com/
+      <div id="certificateErrorText">https://<%= domain %>/
 
 Peer's Certificate issuer is not recognized.
 
