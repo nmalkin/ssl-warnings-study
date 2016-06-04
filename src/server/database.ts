@@ -36,6 +36,19 @@ function connect() : mysql.IConnection {
 
 var connection = connect();
 
+// Handle connection errors
+connection.on('error', function(err) {
+    // Reconnect if connection gets lost
+    if(err.code == 'PROTOCOL_CONNECTION_LOST') {
+        connection = connect();
+        if(connection !== null) {
+            return;
+        }
+    }
+
+    throw new Error(JSON.stringify(err));
+});
+
 /**
  * Execute the given query, interpolating the provided values
  */
