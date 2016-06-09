@@ -85,6 +85,7 @@ export function main(req, res) {
         var domain = req.headers['host'];
         view.warning(browser, condition, domain, res);
 
+        events.trackInternal(req, 'show_condition', conditions.asString(condition));
         events.trackInternal(req, 'show_warning', browser_detect.Browser[browser]);
     }
 }
