@@ -42,7 +42,7 @@ export function trackInternal(req, event : string, value : string) : void {
  * Tracks the given event name, with the current timestamp as the payload
  */
 export function trackInternalMoment(req, event : string) : void {
-    trackInternal(req, 'proceed', (new Date()).toISOString());
+    trackInternal(req, event, (new Date()).toISOString());
 }
 
 setupDatabase();
