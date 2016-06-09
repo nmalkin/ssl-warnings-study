@@ -10,26 +10,26 @@ import view = require('./view');
  */
 export function sessionManager(req, res, next) {
     // Get a unique session ID
-    if(! req.session.id) {
+    if(! ('id' in req.session)) {
         req.session.id = crypto.randomBytes(64).toString('hex');
     }
 
     // Establish the condition for this participant
-    if(! req.session.condition) {
+    if(! ('condition' in req.session)) {
         req.session.condition = conditions.assignNext();
         events.trackInternal(req, 'condition',
             conditions.asString(req.session.condition));
     }
 
     // Detect the browser
-    if(! req.session.browser) {
+    if(! ('browser' in req.session)) {
         req.session.browser = browser_detect.browserFromUseragent(req.headers['user-agent']);
         events.trackInternal(req, 'browser',
             browser_detect.Browser[req.session.browser]);
     }
 
     // Set up session state
-    if(! req.session.proceed) {
+    if(! ('proceed' in req.session)) {
         req.session.proceed = false;
     }
 
